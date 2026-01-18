@@ -96,7 +96,7 @@ app.post("/register", async (req, res) => {
     });
 
     await newUser.save();
-    res.send("✅ Registered Successfully! Now go to Login.");
+     return res.redirect("/login");
   } catch (error) {
     console.log(error);
     res.send("❌ Error in Register");
