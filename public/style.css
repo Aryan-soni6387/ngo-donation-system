@@ -1,0 +1,339 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap");
+
+:root {
+  --bg1: #faf3e1;
+  --bg2: #f3e6c8;
+  --dark: #1e1e1e;
+
+  --card: rgba(255, 255, 255, 0.85);
+  --border: rgba(30, 30, 30, 0.12);
+  --shadow: 0px 12px 30px rgba(0, 0, 0, 0.08);
+
+  --text: #1e1e1e;
+  --muted: rgba(30, 30, 30, 0.65);
+
+  --orange: #ff8a00;
+  --orange2: #ff6a00;
+  --green: #1ea85b;
+  --red: #e94040;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", Arial, sans-serif;
+}
+
+body {
+  background: radial-gradient(circle at 20% 15%, #ffffff 0%, transparent 40%),
+    radial-gradient(circle at 80% 30%, rgba(255, 138, 0, 0.18) 0%, transparent 55%),
+    linear-gradient(180deg, var(--bg1) 0%, var(--bg2) 100%);
+  color: var(--text);
+  min-height: 100vh;
+  padding: 20px;
+}
+
+::selection {
+  background: rgba(255, 138, 0, 0.25);
+}
+
+/* ✅ headings (simple & premium) */
+h2,
+h3 {
+  color: var(--dark);
+  font-weight: 900;
+  letter-spacing: 0.2px;
+}
+
+p,
+.smallText {
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.smallText {
+  font-size: 13px;
+}
+
+/* ===== Container ===== */
+.container {
+  width: 100%;
+  max-width: 1150px;
+  margin: auto;
+}
+
+/* ===== Navbar ===== */
+.navbar {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  padding: 14px 18px;
+  border-radius: 18px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+}
+
+.brand {
+  font-size: 18px;
+  font-weight: 900;
+  letter-spacing: 0.4px;
+  color: var(--dark);
+}
+
+.badge {
+  padding: 7px 14px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 900;
+  border: 1px solid var(--border);
+  background: #ffffff;
+  color: var(--dark);
+}
+
+.badge-admin {
+  background: var(--dark);
+  color: white;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+/* ===== Cards ===== */
+.cardWide,
+.card {
+  width: 100%;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  padding: 22px;
+  box-shadow: var(--shadow);
+}
+
+hr.line {
+  margin: 14px 0;
+  border: none;
+  height: 1px;
+  background: rgba(30, 30, 30, 0.1);
+}
+
+/* ===== Grid ===== */
+.grid {
+  display: grid;
+  gap: 16px;
+}
+
+.grid-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.grid-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+@media (max-width: 900px) {
+  .grid-3,
+  .grid-2 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ===== Stat value ===== */
+.statValue {
+  font-size: 30px;
+  font-weight: 950;
+  margin-top: 10px;
+  color: var(--orange2);
+}
+
+/* ===== Buttons ===== */
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.btn,
+.btn-mini {
+  border: none;
+  cursor: pointer;
+  font-weight: 900;
+  transition: 0.2s;
+  border-radius: 14px;
+  text-decoration: none;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn {
+  width: 100%;
+  padding: 12px;
+  font-size: 15px;
+}
+
+.btn-mini {
+  padding: 9px 14px;
+  font-size: 13px;
+}
+
+.btn:hover,
+.btn-mini:hover {
+  transform: translateY(-1px);
+}
+
+/* ✅ clean NGO buttons */
+.btn-orange {
+  background: linear-gradient(135deg, var(--orange), var(--orange2));
+  color: white;
+}
+
+.btn-black {
+  background: var(--dark);
+  color: white;
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--dark);
+  border: 1px solid var(--border);
+}
+
+.btn-cream {
+  background: #ffffff;
+  color: var(--dark);
+  border: 1px solid var(--border);
+}
+
+/* extra buttons matching your old class names */
+.btn-yellow {
+  background: linear-gradient(135deg, var(--orange), var(--orange2));
+  color: white;
+}
+.btn-cyan {
+  background: var(--dark);
+  color: white;
+}
+.btn-purple {
+  background: #ffffff;
+  color: var(--dark);
+  border: 1px solid var(--border);
+}
+.btn-green {
+  background: rgba(30, 168, 91, 0.14);
+  color: var(--green);
+  border: 1px solid rgba(30, 168, 91, 0.25);
+}
+.btn-red {
+  background: rgba(233, 64, 64, 0.14);
+  color: var(--red);
+  border: 1px solid rgba(233, 64, 64, 0.25);
+}
+
+/* ===== Inputs ===== */
+.inputBox {
+  margin-top: 12px;
+}
+
+.inputBox label {
+  font-size: 13px;
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 800;
+  color: var(--dark);
+}
+
+.inputBox input {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  outline: none;
+  background: #ffffff;
+  color: var(--dark);
+  font-size: 14px;
+  transition: 0.2s;
+}
+
+.inputBox input:focus {
+  border: 1px solid rgba(255, 138, 0, 0.8);
+  box-shadow: 0px 0px 0px 3px rgba(255, 138, 0, 0.22);
+}
+
+/* ===== Tables ===== */
+.tableWrap {
+  width: 100%;
+  overflow-x: auto;
+  margin-top: 14px;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 800px;
+}
+
+th,
+td {
+  padding: 12px 14px;
+  text-align: left;
+  font-size: 14px;
+}
+
+th {
+  background: rgba(255, 138, 0, 0.12);
+  font-weight: 900;
+  color: var(--dark);
+}
+
+tr {
+  border-bottom: 1px solid rgba(30, 30, 30, 0.06);
+}
+
+tr:hover {
+  background: rgba(255, 138, 0, 0.08);
+}
+
+/* ===== Status ===== */
+.status {
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-weight: 900;
+  font-size: 12px;
+  display: inline-block;
+}
+
+.status-success {
+  background: rgba(30, 168, 91, 0.12);
+  color: var(--green);
+  border: 1px solid rgba(30, 168, 91, 0.25);
+}
+
+.status-pending {
+  background: rgba(255, 138, 0, 0.16);
+  color: #8a3c00;
+  border: 1px solid rgba(255, 138, 0, 0.25);
+}
+
+.status-failed {
+  background: rgba(233, 64, 64, 0.12);
+  color: var(--red);
+  border: 1px solid rgba(233, 64, 64, 0.25);
+}
+
+/* ===== Center pages (Login/Register) ===== */
+.centerPage {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.centerCard {
+  width: 100%;
+  max-width: 420px;
+}

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Donations</title>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+
+  <div class="container">
+
+    <div class="navbar">
+      <div class="brand">💳 Donation Records</div>
+      <div class="badge badge-admin">ADMIN PANEL</div>
+    </div>
+
+    <div class="cardWide">
+      <h3>All Donations</h3>
+      <p class="smallText">Filter donation history + export CSV report</p>
+
+      <div class="actions">
+        <a class="btn-mini btn-yellow" href="/admin/dashboard">Back</a>
+
+        <a class="btn-mini btn-purple" href="/admin/donations?status=ALL">All</a>
+        <a class="btn-mini btn-green" href="/admin/donations?status=SUCCESS">Success</a>
+        <a class="btn-mini btn-cyan" href="/admin/donations?status=PENDING">Pending</a>
+        <a class="btn-mini btn-red" href="/admin/donations?status=FAILED">Failed</a>
+      </div>
+
+      <p class="smallText" style="margin-top: 12px;">
+        Current Filter: <b><%= selectedStatus %></b>
+      </p>
+
+      <div class="tableWrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Order ID</th>
+              <th>User</th>
+              <th>Amount</th>
+              <th>Status</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% if (donations.length === 0) { %>
+              <tr><td colspan="5">No donations found</td></tr>
+            <% } %>
+
+            <% donations.forEach(d => { %>
+              <tr>
+                <td><%= d.orderId %></td>
+                <td><%= d.userId?.email || "Unknown" %></td>
+                <td><%= d.amount %> <%= d.currency %></td>
+
+                <td>
+                  <% if (d.status === "SUCCESS") { %>
+                    <span class="status status-success">SUCCESS</span>
+                  <% } else if (d.status === "PENDING") { %>
+                    <span class="status status-pending">PENDING</span>
+                  <% } else { %>
+                    <span class="status status-failed">FAILED</span>
+                  <% } %>
+                </td>
+
+                <td><%= new Date(d.createdAt).toLocaleString() %></td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="actions" style="margin-top: 16px;">
+        <a class="btn-mini btn-purple" href="/admin/export/donations">⬇ Download Donations CSV</a>
+        <a class="btn-mini btn-red" href="/logout">Logout</a>
+      </div>
+
+    </div>
+  </div>
+
+</body>
+</html>

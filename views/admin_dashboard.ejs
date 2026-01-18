@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+
+  <div class="container">
+
+    <div class="navbar">
+      <div class="brand">🛡️ Admin Dashboard</div>
+      <div class="badge badge-admin">ADMIN PANEL</div>
+    </div>
+
+    <div class="cardWide">
+      <h3>Welcome Admin, <%= admin.name %> </h3>
+      <p class="smallText">Manage registrations and donations with full transparency</p>
+
+      <div class="actions">
+        <a class="btn-mini btn-purple" href="/admin/users">View Users</a>
+        <a class="btn-mini btn-cyan" href="/admin/donations"> View Donations</a>
+        <a class="btn-mini btn-green" href="/admin/charts">View Charts</a>
+        <a class="btn-mini btn-red" href="/logout">Logout</a>
+      </div>
+    </div>
+
+    <br />
+
+    <div class="grid grid-3">
+      <div class="cardWide">
+        <h3>Total Registrations</h3>
+        <p class="smallText">All registered users</p>
+        <div class="statValue"><%= totalUsers %></div>
+      </div>
+
+      <div class="cardWide">
+        <h3>Total Donations</h3>
+        <p class="smallText">All donation attempts</p>
+        <div class="statValue"><%= totalDonations %></div>
+      </div>
+
+      <div class="cardWide">
+        <h3>Total Received</h3>
+        <p class="smallText">Only SUCCESS payments</p>
+        <div class="statValue"><%= successAmount %> LKR</div>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>

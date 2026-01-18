@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login</title>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+
+  <div class="centerPage">
+    <div class="cardWide centerCard">
+      <h3>NGO Donation System</h3>
+      <p class="smallText">Login to continue supporting NGOs</p>
+
+      <form method="POST" action="/login">
+        <div class="inputBox">
+          <label>Email</label>
+          <input type="email" name="email" placeholder="Enter your email" required />
+        </div>
+
+        <div class="inputBox">
+          <label>Password</label>
+          <input type="password" name="password" placeholder="Enter your password" required />
+        </div>
+
+        <div style="margin-top:16px;">
+          <button class="btn btn-orange" type="submit">Login</button>
+        </div>
+      </form>
+
+      <hr class="line" />
+
+      <a class="btn btn-outline" href="/register">Create New Account</a>
+    </div>
+  </div>
+
+</body>
+</html>

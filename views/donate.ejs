@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Donate</title>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+
+  <div class="container">
+
+    <div class="navbar">
+      <div class="brand">Donate Now</div>
+      <div class="badge badge-user">USER PANEL</div>
+    </div>
+
+    <div class="cardWide">
+      <h3>Make a Donation</h3>
+      <p class="smallText">
+        Donation attempts will be tracked and shown as SUCCESS / PENDING / FAILED
+      </p>
+
+      <div class="inputBox">
+        <label>Donation Amount (LKR)</label>
+        <input id="amount" type="number" placeholder="Enter amount (example: 500)" min="1" required />
+      </div>
+
+      <div class="actions">
+        <button class="btn-mini btn-green" onclick="startPayHere()">Pay Now</button>
+        <a class="btn-mini btn-cyan" href="/donations">View History</a>
+        <a class="btn-mini btn-yellow" href="/user/dashboard">Back</a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ✅ PayHere JS -->
+  <script type="text/javascript" src="https://www.payhere.lk/lib/payhere.js"></script>
+
+  <script>
+    async function startPayHere() {
+      const amount = document.getElementById("amount").value;
+
+      if (!amount || Number(amount) <= 0) {
+        alert("Enter a valid amount!");
+        return;
+      }
+
+      // ✅ 1) Get payment object from backend
+      const res = await fetch("/payment/create-payment", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ amount })
+      });
+
+      const obj = await res.json();
+
+      if (!obj.success) {
+        alert("Error creating payment: " + obj.message);
+        return;
+      }
+
+      const payment = obj.payment;
+
+      // ✅ Completed (does NOT mean success confirmed)
+      payhere.onCompleted = function (orderId) {
+        console.log("Payment completed. OrderID:" + orderId);
+
+        // ✅ DO NOT mark SUCCESS here
+        // ✅ SUCCESS should only be updated from notify_url confirmation
+
+        window.location.href = "/donations";
+      };
+
+      // ✅ Payment dismissed (user closed / cancelled)
+      payhere.onDismissed = async function () {
+        console.log("Payment dismissed");
+
+        // ✅ keep as PENDING (do not mark success)
+        await fetch("/payment/mark-pending", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ orderId: payment.order_id })
+        });
+
+        window.location.href = "/donations";
+      };
+
+      // ✅ Error occurred
+      payhere.onError = async function (error) {
+        console.log("Error:" + error);
+
+        // ✅ keep as PENDING (or FAILED if you want)
+        await fetch("/payment/mark-pending", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ orderId: payment.order_id })
+        });
+
+        window.location.href = "/donations";
+      };
+
+      // ✅ Start PayHere Popup
+      payhere.startPayment(payment);
+    }
+  </script>
+
+</body>
+</html>

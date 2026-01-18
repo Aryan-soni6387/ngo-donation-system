@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Charts</title>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+
+  <div class="container">
+
+    <div class="navbar">
+      <div class="brand">📊 Donation Analytics</div>
+      <div class="badge badge-admin">ADMIN PANEL</div>
+    </div>
+
+    <div class="cardWide">
+      <h3>Welcome Admin, <%= admin.name %> 👑</h3>
+      <p class="smallText">
+        Donation graphs for last 7 days and last 30 days (SUCCESS only)
+      </p>
+
+      <div class="actions">
+        <a class="btn-mini btn-yellow" href="/admin/dashboard">Back</a>
+        <a class="btn-mini btn-cyan" href="/admin/donations">View Donations</a>
+        <a class="btn-mini btn-red" href="/logout">Logout</a>
+      </div>
+    </div>
+
+    <br />
+
+    <!-- ✅ SAFE DATA PASSING (NO SCRIPT EJS ERRORS) -->
+    <div
+      id="chartData"
+      data-last7-labels="<%= encodeURIComponent(JSON.stringify(last7.labels)) %>"
+      data-last7-totals="<%= encodeURIComponent(JSON.stringify(last7.totals)) %>"
+      data-last30-labels="<%= encodeURIComponent(JSON.stringify(last30.labels)) %>"
+      data-last30-totals="<%= encodeURIComponent(JSON.stringify(last30.totals)) %>"
+    ></div>
+
+    <div class="grid grid-2">
+      <div class="cardWide">
+        <h3>Last 7 Days Donations</h3>
+        <p class="smallText">Total donation amount per day</p>
+        <canvas id="chart7"></canvas>
+      </div>
+
+      <div class="cardWide">
+        <h3>Last 30 Days Donations</h3>
+        <p class="smallText">Total donation amount per day</p>
+        <canvas id="chart30"></canvas>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ✅ Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <script>
+    // ✅ Read data from HTML attributes
+    const chartDataDiv = document.getElementById("chartData");
+
+    const last7Labels = JSON.parse(decodeURIComponent(chartDataDiv.dataset.last7Labels));
+    const last7Totals = JSON.parse(decodeURIComponent(chartDataDiv.dataset.last7Totals));
+
+    const last30Labels = JSON.parse(decodeURIComponent(chartDataDiv.dataset.last30Labels));
+    const last30Totals = JSON.parse(decodeURIComponent(chartDataDiv.dataset.last30Totals));
+
+    // ✅ Chart 1: Last 7 days (Line)
+    new Chart(document.getElementById("chart7"), {
+      type: "line",
+      data: {
+        labels: last7Labels,
+        datasets: [
+          {
+            label: "Donation Amount (LKR)",
+            data: last7Totals,
+            tension: 0.3,
+            fill: false,
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+      },
+    });
+
+    // ✅ Chart 2: Last 30 days (Bar)
+    new Chart(document.getElementById("chart30"), {
+      type: "bar",
+      data: {
+        labels: last30Labels,
+        datasets: [
+          {
+            label: "Donation Amount (LKR)",
+            data: last30Totals,
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+      },
+    });
+  </script>
+
+</body>
+</html>

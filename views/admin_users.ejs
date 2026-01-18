@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Users</title>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+
+  <div class="container">
+
+    <div class="navbar">
+      <div class="brand">Registered Users</div>
+      <div class="badge badge-admin">ADMIN PANEL</div>
+    </div>
+
+    <div class="cardWide">
+      <h3>All Users</h3>
+      <p class="smallText">
+        SuperAdmin can promote/demote admins. Normal admins can only view.
+      </p>
+
+      <div class="actions">
+        <a class="btn-mini btn-yellow" href="/admin/dashboard">Back</a>
+        <a class="btn-mini btn-cyan" href="/admin/export/users">Download Users CSV</a>
+        <a class="btn-mini btn-red" href="/logout">Logout</a>
+      </div>
+
+      <hr class="line" />
+
+      <!-- ✅ SEARCH BAR -->
+      <form method="GET" action="/admin/users" style="display:flex; gap:10px; flex-wrap:wrap; margin-top:12px;">
+        <input
+          style="flex:1; min-width:220px;"
+          type="text"
+          name="q"
+          placeholder="Search name / email / phone"
+          value="<%= q || '' %>"
+        />
+        <button type="submit" class="btn-mini btn-purple">Search</button>
+        <a href="/admin/users" class="btn-mini btn-red">Clear</a>
+      </form>
+
+      <div class="tableWrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th>Role</th>
+              <th>Created</th>
+
+              <% if (currentRole === "superadmin") { %>
+                <th>Actions</th>
+              <% } %>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% if (users.length === 0) { %>
+              <tr>
+                <td colspan="<%= currentRole === 'superadmin' ? 6 : 5 %>">
+                  No users found
+                </td>
+              </tr>
+            <% } %>
+
+            <% users.forEach(u => { %>
+              <tr>
+                <td><%= u.name %></td>
+                <td><%= u.email %></td>
+                <td><%= u.phone %></td>
+
+                <td>
+                  <% if (u.role === "superadmin") { %>
+                    <span class="status status-success">SUPERADMIN</span>
+                  <% } else if (u.role === "admin") { %>
+                    <span class="status status-pending">ADMIN</span>
+                  <% } else { %>
+                    <span class="status status-failed">USER</span>
+                  <% } %>
+                </td>
+
+                <td><%= new Date(u.createdAt).toLocaleString() %></td>
+
+                <% if (currentRole === "superadmin") { %>
+                  <td>
+                    <% if (u.role === "superadmin") { %>
+                      <span class="smallText">Protected</span>
+
+                    <% } else if (u.role === "user") { %>
+                      <form action="/admin/make-admin/<%= u._id %>" method="POST" style="display:inline;">
+                        <button type="submit" class="btn-mini btn-green">Make Admin</button>
+                      </form>
+
+                    <% } else if (u.role === "admin") { %>
+                      <form action="/admin/remove-admin/<%= u._id %>" method="POST" style="display:inline;">
+                        <button type="submit" class="btn-mini btn-red">Remove Admin</button>
+                      </form>
+                    <% } %>
+                  </td>
+                <% } %>
+
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+
+</body>
+</html>

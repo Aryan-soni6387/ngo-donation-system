@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>User Dashboard</title>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+
+  <div class="container">
+
+    <div class="navbar">
+      <div class="brand">💙 NGO Donation System</div>
+      <div class="badge badge-user">USER PANEL</div>
+    </div>
+
+    <div class="cardWide">
+      <h3>Welcome, <%= user.name %> 👋</h3>
+      <p class="smallText">Donate any amount and track payment status (Success / Pending / Failed)</p>
+
+      <div class="actions">
+        <a class="btn-mini btn-green" href="/donate">💙 Donate Now</a>
+        <a class="btn-mini btn-yellow" href="/donations">📜 Donation History</a>
+        <a class="btn-mini btn-red" href="/logout">🚪 Logout</a>
+      </div>
+    </div>
+
+    <br />
+
+    <div class="grid grid-3">
+      <div class="cardWide">
+        <h3>Registered Email</h3>
+        <p class="smallText">Saved even if payment fails</p>
+        <div class="statValue" style="font-size:16px;"><%= user.email %></div>
+      </div>
+
+      <div class="cardWide">
+        <h3>Phone</h3>
+        <p class="smallText">User registration data</p>
+        <div class="statValue" style="font-size:16px;"><%= user.phone %></div>
+      </div>
+
+      <div class="cardWide">
+        <h3>Role</h3>
+        <p class="smallText">Access permissions</p>
+        <div class="statValue" style="font-size:16px;"><%= user.role.toUpperCase() %></div>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>

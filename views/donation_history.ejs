@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Donation History</title>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+
+  <div class="container">
+
+    <div class="navbar">
+      <div class="brand">📜 Donation History</div>
+      <div class="badge badge-user">USER PANEL</div>
+    </div>
+
+    <div class="cardWide">
+      <h3>Your Donation Records</h3>
+      <p class="smallText">Shows your donation attempts and current payment status</p>
+
+      <div class="actions">
+        <a class="btn-mini btn-green" href="/donate">Donate Again</a>
+        <a class="btn-mini btn-yellow" href="/user/dashboard">Back</a>
+        <a class="btn-mini btn-red" href="/logout">Logout</a>
+      </div>
+
+      <div class="tableWrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Order ID</th>
+              <th>Amount</th>
+              <th>Status</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% if (donations.length === 0) { %>
+              <tr>
+                <td colspan="4">No donations found</td>
+              </tr>
+            <% } %>
+
+            <% donations.forEach(d => { %>
+              <tr>
+                <td><%= d.orderId %></td>
+                <td><%= d.amount %> <%= d.currency %></td>
+                <td>
+                  <% if (d.status === "SUCCESS") { %>
+                    <span class="status status-success">SUCCESS</span>
+                  <% } else if (d.status === "PENDING") { %>
+                    <span class="status status-pending">PENDING</span>
+                  <% } else { %>
+                    <span class="status status-failed">FAILED</span>
+                  <% } %>
+                </td>
+                <td><%= new Date(d.createdAt).toLocaleString() %></td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+  </div>
+
+</body>
+</html>
