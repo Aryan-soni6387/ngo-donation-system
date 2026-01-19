@@ -11,8 +11,6 @@ This project provides:
 ✅ Reports + CSV download  
 ✅ Beautiful modern UI (dark neon dashboard)
 
----
-
 ## 🚀 Features
 
 ### 👤 User Panel
@@ -44,8 +42,6 @@ This project provides:
   ✅ Remove admin → User  
 - Admins can view data but cannot change roles.
 
----
-
 ## 🧑‍💻 Tech Stack
 
 - **Frontend:** EJS, HTML, CSS (Modern Dark UI)
@@ -55,7 +51,6 @@ This project provides:
 - **Payment Gateway:** PayHere Sandbox
 - **Charts:** Chart.js
 
----
 
 ## 📂 Project Structure
 
