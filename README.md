@@ -85,26 +85,21 @@ NGO_Donation_EJS/
 └── README.md
 ⚙️ Installation & Setup
 ✅ 1) Clone the repository
-git clone <repo-url>
-cd NGO_Donation_EJS
+git clone https://github.com/Aryan-soni6387/ngo-donation-system.git
+cd ngo-donation-system
 
 ✅ 2) Install dependencies
 npm install
 
 ✅ 3) Create .env file
 
-Create a file named .env in project root and add:
+Create a file named .env in the project root and add:
 
 PORT=5000
 SESSION_SECRET=your_secret_key
-
 MONGO_URI=your_mongodb_connection_string
-
 PAYHERE_MERCHANT_ID=your_payhere_merchant_id
 PAYHERE_MERCHANT_SECRET=your_payhere_merchant_secret
-
-
-⚠️ Never upload .env file to GitHub.
 
 ▶️ Run the project
 
